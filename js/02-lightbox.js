@@ -20,7 +20,6 @@ function createGalleryItemsMarkup(galleryItems) {
         )
         .join('');
 }
-a
 galleryContainer.insertAdjacentHTML('afterbegin', galleryItemsMarkup);
 
 

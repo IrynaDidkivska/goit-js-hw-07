@@ -34,14 +34,16 @@ function onGalleryContainerClick(event) {
     //   Заміна значення атрибута src елемента <img> в модальному вікні перед відкриттям.
     const bannerImgEl = basicLightbox.create(`
     <img src="${dataset.source}">`);
-    bannerImgEl.show()
-    document.addEventListener('keydown', closeModalWindow);
+    bannerImgEl.show();
+ 
     // закриття модального вікна після натискання клавіші Escape
-    function closeModalWindow(event) {
+    const closeModalWindow = (event) => {
     if (event.key === 'Escape') {
         bannerImgEl.close();
+        document.removeEventListener('keydown', closeModalWindow);
     }
 }
+   document.addEventListener('keydown', closeModalWindow);
 }
 
 console.log(galleryItems);
