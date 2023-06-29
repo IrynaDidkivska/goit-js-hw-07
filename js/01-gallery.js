@@ -2,7 +2,6 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const galleryContainer = document.querySelector('.gallery');
 const galleryItemsMarkup = createGalleryItemsMarkup(galleryItems);
- 
 galleryContainer.insertAdjacentHTML('afterbegin', galleryItemsMarkup);
 galleryContainer.addEventListener('click',onGalleryContainerClick)
     // Створення і рендер розмітки
@@ -25,7 +24,9 @@ function createGalleryItemsMarkup(galleryItems) {
 }
 // Реалізація делегування
 function onGalleryContainerClick(event) { 
+    // console.log("open");
     event.preventDefault();
+     document.addEventListener('keydown', closeModalWindow);
     const { target: { classList, dataset } } = event;
     const isGalleryImageEl = classList.contains('gallery__image');
      if (!isGalleryImageEl) {
@@ -37,13 +38,13 @@ function onGalleryContainerClick(event) {
     bannerImgEl.show();
  
     // закриття модального вікна після натискання клавіші Escape
-    const closeModalWindow = (event) => {
+    function closeModalWindow(event) {
+        // console.log('close');
     if (event.key === 'Escape') {
-        bannerImgEl.close();
-        document.removeEventListener('keydown', closeModalWindow);
+        bannerImgEl.close(() => document.removeEventListener('keydown', closeModalWindow));
     }
 }
-   document.addEventListener('keydown', closeModalWindow);
+  
 }
 
 console.log(galleryItems);
